@@ -74,6 +74,45 @@ public class Colosseum {
      */
     public static Pokemon buildPokemon() {
         Pokemon tempPokemon = new Pokemon();
+        System.out.println("Please name your Pokemon: ");
+        myScan = new Scanner(System.in);
+        tempPokemon.name = myScan.next();
+        while (true) {
+            System.out.println("How many hit points will it have? (1-50): ");
+            int input = myScan.nextInt();
+            if (input < 0 || input > MAX_HIT_POINTS) {
+                System.out.println("Sorry. Hit points must be between 1 and 50: ");
+            } else  {
+                tempPokemon.hitPoints = input;
+                System.out.println("Split fifty points between attack level and defense level");
+                while (true) {
+                    System.out.println("Enter your attack level (1-49):");
+                    input = myScan.nextInt();
+                    if (input < 1 || input > MAX_HIT_POINTS - 1) {
+                        System.out.println("Sorry. The attack level must be between 1 and 49: ");
+                    } else {
+                        tempPokemon.attackLevel = input;
+                        while (true) {
+System.out.println("Enter your defense level (1-"
+                        + (tempPokemon.hitPoints - tempPokemon.attackLevel) + "): ");
+                        input = myScan.nextInt();
+                        if (input < 1 || input > tempPokemon.hitPoints - tempPokemon.attackLevel) {
+ System.out.println("Sorry. The attack level must be between 1 and "
+                        + (tempPokemon.hitPoints - tempPokemon.attackLevel) + ": ");
+                        } else {
+                            tempPokemon.defenseLevel = input;
+                            break;
+                        }
+                        break;
+                        }
+                        break;
+                    }
+                    break;
+                }
+                break;
+            }
+            break;
+        }
         return tempPokemon;
     }
 
@@ -82,6 +121,7 @@ public class Colosseum {
      * <p>
      * Compares the two Pokemon to see if there's a tie, or if a pokemon is currently winning.
      * <p>
+     *
      * Example: <br>
      * Fire has 41 hit points <br>
      * Dolphin has 44 hit points <br>
@@ -91,7 +131,11 @@ public class Colosseum {
      * Implement this function.
      */
     public static void printWhoIsAhead() {
-        System.out.println("Implement me!");
+        if (firstPokemon.hitPoints > secondPokemon.hitPoints) {
+            System.out.println(firstPokemon.name + " is currently ahead!");
+        } else {
+            System.out.println(secondPokemon.name + " is currently ahead!");
+        }
     }
 
     /**
@@ -102,7 +146,11 @@ public class Colosseum {
      * Write this function.
      */
     public static void determineWinner() {
-        System.out.println("Implement me!");
+        if (firstPokemon.hitPoints == 0) {
+            System.out.println(secondPokemon.name + " is winner");
+        } else if (secondPokemon.hitPoints == 0) {
+            System.out.println(firstPokemon.name + " is winner");
+        }
     }
 
     /**
